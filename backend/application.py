@@ -2,6 +2,7 @@
 
 
 import logging
+import os
 from flask import Flask
 from flask_migrate import Migrate
 from config import settings
@@ -17,7 +18,7 @@ def init_app():
     app = Flask(__name__)
     app.json_encoder = CustomJSONEncoder
 
-    app.config['SQLALCHEMY_DATABASE_URI'] = get_engine_url()
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', get_engine_url())
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     route(app=app)
 
