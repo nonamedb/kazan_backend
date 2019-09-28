@@ -2,6 +2,7 @@
 
 
 import functools
+import os
 from sqlalchemy.engine import create_engine, Engine
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import SQLAlchemyError
@@ -9,6 +10,8 @@ from config.settings import DATABASE, testing
 
 
 def get_engine_url():
+    if os.getenv('DATABASE_URL'):
+        return os.getenv('DATABASE_URL')
     if DATABASE['driver'] in ('sqlite',):
         engine_url = '%(driver)s://%(dbname)s' % DATABASE
     else:
