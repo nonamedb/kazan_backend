@@ -15,7 +15,8 @@ blueprint = Blueprint('Volunteer', __name__)
 def join_event(vk_id: int, event_id: int):
     logger.info(f'Volunteer {vk_id} join {event_id}')
     try:
-        return jsonify(VolunteerDomain.join_event(vk_id=vk_id, event_id=event_id))
+        res = VolunteerDomain.join_event(vk_id=vk_id, event_id=event_id)
+        return jsonify(res=[])
     except DataNotFoundException:
         return abort(404)
     except:
