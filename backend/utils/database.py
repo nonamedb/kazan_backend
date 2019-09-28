@@ -3,10 +3,14 @@
 
 import functools
 import os
+import logging
 from sqlalchemy.engine import create_engine, Engine
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import SQLAlchemyError
 from config.settings import DATABASE, testing
+
+
+logger = logging.getLogger(__name__)
 
 
 def get_engine_url():
@@ -39,6 +43,7 @@ def use_session(func):
             return res
         except (SQLAlchemyError, ) as exc:
             session.rollback()
+            logging.info(repr(exc))
         finally:
             session.close()
     return wrapper
