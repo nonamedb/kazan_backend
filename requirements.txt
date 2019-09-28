@@ -1,0 +1,5 @@
+sqlalchemy
+pytest
+pytest-ordering
+factory_boy
+Faker
