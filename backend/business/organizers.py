@@ -1,64 +1,41 @@
-# coding: utf-8
 
 
+import logging
 from sqlalchemy.orm import Session
 from backend.utils.database import use_session
-from backend.models import *
+from backend.models import Volunteer, Event
 from backend.business.exceptions import DataNotFoundException, UnknownParameterException
 
 
-class EventDomain:
+logger = logging.getLogger(__name__)
 
-    def __init__(self,
-                 name: str,
-                 description: str,
-                 community_id: int,
-                 volunteer_count: int,
-                 bot: bool,
-                 reward: int) -> None:
-        self.name: str = name
-        self.description: str = description
-        self.community_id: int = community_id
-        self.volunteer_count: int = volunteer_count
-        self.bot: bool = bot
-        self.reward: int = reward
+
+class OrganizerDomain:
 
     @classmethod
     @use_session
-    def register(cls,
-                 session: Session,
-                 name: str,
-                 description: str,
-                 event_subject: str,
-                 community_id: int,
-                 volunteer_count: int,
-                 bot: bool,
-                 reward: int) -> dict:
-        event_subject = session.query(EventSubject).filter(EventSubject.name == event_subject).one_or_none()
-        if not event_subject:
+    def join_event(cls,
+                   session: Session,
+                   vk_id: int,
+                   event_id: int) -> dict:
+        event = session.query(Event).filter(Event.id == event_id).one_or_none()
+        if not event:
+            logger.info(f'Volunteer {vk_id} not join {event_id}')
             raise DataNotFoundException()
-        event_obj = Event(name=name,
-                          description=description,
-                          event_subject_id=event_subject.id,
-                          community_id=community_id,
-                          volunteer_count=volunteer_count,
-                          bot=bot,
-                          reward=reward
-                          )
-        session.add(event_obj)
+        logger.info(f'Volunteer {vk_id} {event_id}')
+        volunteer_obj = session.query(Volunteer).filter(Volunteer.vk_id == vk_id).one_or_none()
+        if not volunteer_obj:
+            volunteer_obj = Volunteer(vk_id=vk_id)
+            session.add(volunteer_obj)
+        volunteer_obj.events.append(event)
+        logger.info(f'Volunteer add to session')
         session.commit()
-        return event_obj.marshall()
+        return volunteer_obj.marshall()
 
     @classmethod
     @use_session
     def get_detail(cls, session, key: int) -> dict:
-        event = session.query(Event).filter(Event.id == key).one_or_none()
-        if not event:
+        volunteer = session.query(Volunteer).filter(Volunteer.vk_id == key).one_or_none()
+        if not volunteer:
             raise DataNotFoundException()
-        return event.marshall()
-
-    @classmethod
-    @use_session
-    def list(cls, session, ) -> list:
-        _events = session.query(Event).order_by(Event.event_date).all() or []
-        return [event.marshall() for event in _events]
+        return volunteer.marshall()

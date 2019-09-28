@@ -24,4 +24,4 @@ def test__volunteer__join_event(session):
 @pytest.mark.run(2)
 def test__volunteer__get_detail():
     volunteer = Factory.volunteer()
-    assert volunteer.id == VolunteerDomain.get_detail(key=volunteer.id)['id']
+    assert volunteer.id == VolunteerDomain.get_detail(key=volunteer.vk_id)['id']

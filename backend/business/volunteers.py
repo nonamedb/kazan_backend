@@ -36,13 +36,7 @@ class VolunteerDomain:
     @classmethod
     @use_session
     def get_detail(cls, session, key: int) -> dict:
-        volunteer = session.query(Volunteer).filter(Volunteer.id == key).one_or_none()
+        volunteer = session.query(Volunteer).filter(Volunteer.vk_id == key).one_or_none()
         if not volunteer:
             raise DataNotFoundException()
         return volunteer.marshall()
-
-    @classmethod
-    @use_session
-    def list(cls, session, ) -> list:
-        _events = session.query(Event).order_by(Event.event_date).all() or []
-        return [event.marshall() for event in _events]

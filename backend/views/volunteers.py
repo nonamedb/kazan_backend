@@ -24,7 +24,13 @@ def join_event(vk_id: str, event_id: int):
         return abort(500)
 
 
-@blueprint.route('/list/', strict_slashes=False)
-def event_list():
-    logger.info('Events. Get ll')
-    return jsonify(EventDomain.list()[:5])
+@blueprint.route('/<string:vk_id>/', strict_slashes=False)
+def volunteer_detail(vk_id: int):
+    logger.info('Volunteer. Get ll')
+    try:
+        volunteer = VolunteerDomain.get_detail(key=vk_id)
+        return jsonify(volunteer)
+    except DataNotFoundException as exc:
+        abort(404)
+    except:
+        abort(500)
