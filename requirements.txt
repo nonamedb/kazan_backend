@@ -6,3 +6,4 @@ Faker
 flask
 webargs
 flask_migrate
+gunicorn

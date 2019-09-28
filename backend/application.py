@@ -23,6 +23,7 @@ def init_app():
 
     app.app_context().push()
     db.init_app(app)
+    Migrate(app=app, db=db)
 
     return app
 
