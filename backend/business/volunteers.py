@@ -23,6 +23,7 @@ class VolunteerDomain:
         if not event:
             logger.info(f'Volunteer {vk_id} not join {event_id}')
             raise DataNotFoundException()
+        logger.info(f'Volunteer {vk_id} {event_id}')
         volunteer_obj = session.query(Volunteer).filter(Volunteer.vk_id == vk_id).one_or_none()
         if not volunteer_obj:
             volunteer_obj = Volunteer(vk_id=vk_id)
