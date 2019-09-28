@@ -30,7 +30,8 @@ class Event(BaseModel):
             community_id=self.community_id,
             volunteer_count=self.volunteer_count,
             bot=self.bot,
-            reward=self.reward
+            reward=self.reward,
+            img=self.img
         )
 
 
