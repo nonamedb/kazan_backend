@@ -26,8 +26,10 @@ def init_app():
     route(app=app)
 
     app.app_context().push()
+
     db.init_app(app)
     Migrate(app=app, db=db)
+    db.create_all()
 
     return app
 
