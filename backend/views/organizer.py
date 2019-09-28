@@ -13,4 +13,4 @@ blueprint = Blueprint('Organizer', __name__)
 @blueprint.route('/', strict_slashes=False)
 def get_all():
     res = EventDomain.get_detail(key=1)
-    return jsonify(dict(results=res))
+    return jsonify(res)
