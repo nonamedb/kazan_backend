@@ -7,3 +7,4 @@ flask
 webargs
 flask_migrate
 gunicorn
+psycopg2-binary
