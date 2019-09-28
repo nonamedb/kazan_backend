@@ -8,3 +8,4 @@ webargs
 flask_migrate
 gunicorn
 psycopg2-binary
+flask_cors

@@ -4,6 +4,7 @@
 import logging
 import os
 from flask import Flask
+from flask_cors import CORS
 from flask_migrate import Migrate
 from config import settings
 from backend.utils.database import get_engine_url
@@ -17,6 +18,8 @@ def init_app():
 
     app = Flask(__name__)
     app.json_encoder = CustomJSONEncoder
+
+    CORS(app)
 
     app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', get_engine_url())
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
