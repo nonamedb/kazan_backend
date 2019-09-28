@@ -17,6 +17,7 @@ class Event(BaseModel):
     volunteer_count = Column(Integer(), nullable=False)
     bot = Column(Integer(), nullable=True)
     reward = Column(Integer(), nullable=True)
+    img = Column(String(250), nullable=True)
 
     event_subject_id = Column(Integer(), ForeignKey('event_subject.id'))
     event_subject = relationship('EventSubject', lazy='joined')
