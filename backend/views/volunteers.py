@@ -17,7 +17,7 @@ def join_event(vk_id: str, event_id: int):
     try:
         res = VolunteerDomain.join_event(vk_id=vk_id, event_id=event_id)
         logger.info(res)
-        return jsonify(res=[])
+        return jsonify(res)
     except DataNotFoundException:
         return abort(404)
     except:
