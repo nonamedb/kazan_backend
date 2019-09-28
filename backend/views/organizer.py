@@ -18,5 +18,5 @@ blueprint = Blueprint('Organizer', __name__)
 
 @blueprint.route('/', strict_slashes=False)
 def get_all():
-    res = EventDomain.list()
+    res = EventDomain.list()[:5]
     return jsonify(res)
