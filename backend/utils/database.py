@@ -8,12 +8,17 @@ from sqlalchemy.exc import SQLAlchemyError
 from config.settings import DATABASE, testing
 
 
-def get_engine() -> Engine:
+def get_engine_url():
     if DATABASE['driver'] in ('sqlite',):
         engine_url = '%(driver)s://%(dbname)s' % DATABASE
     else:
         engine_url = '%(driver)s://%(user)s:%(password)s@%(host)s:%(port)s/%(dbname)s' % DATABASE
-    return create_engine(engine_url, echo=False)
+    return engine_url
+
+
+def get_engine() -> Engine:
+
+    return create_engine(get_engine_url(), echo=False)
 
 
 def get_session() -> Session:

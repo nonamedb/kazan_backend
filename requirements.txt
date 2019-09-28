@@ -3,3 +3,6 @@ pytest
 pytest-ordering
 factory_boy
 Faker
+flask
+webargs
+flask_migrate

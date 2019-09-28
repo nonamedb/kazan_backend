@@ -17,6 +17,9 @@ DATABASE = dict(
 VK_TOKEN = ''
 
 
+LOG_LEVEL = 3
+
+
 try:
     from .local import *
 except ModuleNotFoundError as exc:
