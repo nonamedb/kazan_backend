@@ -20,7 +20,6 @@ def get_engine_url():
 
 
 def get_engine() -> Engine:
-
     return create_engine(get_engine_url(), echo=False)
 
 

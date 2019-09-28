@@ -2,3 +2,4 @@
 
 
 from .events import Event, EventSubject
+from .volunteers import Volunteer

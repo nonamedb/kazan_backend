@@ -12,7 +12,7 @@ blueprint = Blueprint('Event', __name__)
 
 
 @blueprint.route('/<int:event_id>', strict_slashes=False)
-def get_all(event_id: int):
+def event_all(event_id: int):
     logger.info(f'Events. Get {event_id}')
     try:
         return jsonify(EventDomain.get_detail(key=event_id))
