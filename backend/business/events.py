@@ -69,3 +69,9 @@ class EventDomain:
         if not event:
             raise DataNotFoundException()
         return event.marshall()
+
+    @classmethod
+    @use_session
+    def list(cls, session, ) -> list:
+        events = session.query(Event).all() or []
+        return [event.marshall() for event in events]

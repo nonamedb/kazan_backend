@@ -15,7 +15,7 @@ class Event(BaseModel):
     description = Column(Text(), nullable=True)
     community_id = Column(Integer(), nullable=False)
     volunteer_count = Column(Integer(), nullable=False)
-    bot = Column(Boolean(), nullable=True)
+    bot = Column(Integer(), nullable=True)
     reward = Column(Integer(), nullable=True)
 
     event_subject_id = Column(Integer(), ForeignKey('event_subject.id'))
@@ -24,6 +24,12 @@ class Event(BaseModel):
     def marshall(self):
         return dict(
             id=self.id,
+            name=self.name,
+            description=self.description,
+            community_id=self.community_id,
+            volunteer_count=self.volunteer_count,
+            bot=self.bot,
+            reward=self.reward
         )
 
 

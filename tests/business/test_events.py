@@ -29,9 +29,12 @@ def test__event__register(session):
 
 
 @pytest.mark.run(2)
+def test__event__list(session):
+    [Factory.event() for _ in range(20)]
+    assert session.query(Event).all()
+
+
+@pytest.mark.run(3)
 def test__event__get_detail():
     event = Factory.event()
     assert event.id == EventDomain.get_detail(key=event.id)['id']
-
-
-
