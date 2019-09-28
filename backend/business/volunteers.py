@@ -1,10 +1,14 @@
 # coding: utf-8
 
 
+import logging
 from sqlalchemy.orm import Session
 from backend.utils.database import use_session
 from backend.models import Volunteer, Event
 from backend.business.exceptions import DataNotFoundException, UnknownParameterException
+
+
+logger = logging.getLogger(__name__)
 
 
 class VolunteerDomain:
@@ -17,6 +21,7 @@ class VolunteerDomain:
                    event_id: int) -> dict:
         event = session.query(Event).filter(Event.id == event_id).one_or_none()
         if not event:
+            logger.info(f'Volunteer {vk_id} not join {event_id}')
             raise DataNotFoundException()
         volunteer_obj = session.query(Volunteer).filter(Volunteer.vk_id == vk_id).one_or_none()
         if not volunteer_obj:
