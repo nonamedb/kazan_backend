@@ -42,8 +42,8 @@ def use_session(func):
             session.commit()
             return res
         except (SQLAlchemyError, ) as exc:
-            session.rollback()
             logging.info(repr(exc))
+            session.rollback()
         finally:
             session.close()
     return wrapper
