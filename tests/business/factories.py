@@ -65,7 +65,16 @@ class EventFactory(BaseFactory):
     event_subject = factory.SubFactory(EventSubjectFactory)
 
 
+class VolunteerFactory(BaseFactory):
+
+    class Meta:
+        model = models.Volunteer
+
+    vk_id = random.choice(range(1000000, 1000050))
+
+
 class Factory:
 
     event_subject = EventSubjectFactory
     event = EventFactory
+    volunteer = VolunteerFactory

@@ -36,12 +36,10 @@ class VolunteerDomain:
     @classmethod
     @use_session
     def get_detail(cls, session, key: int) -> dict:
-
-        # event = session.query(Event).filter(Event.id == event_id).one_or_none()
-        event = session.query(Event).filter(Event.id == key).one_or_none()
-        if not event:
+        volunteer = session.query(Volunteer).filter(Volunteer.id == key).one_or_none()
+        if not volunteer:
             raise DataNotFoundException()
-        return event.marshall()
+        return volunteer.marshall()
 
     @classmethod
     @use_session

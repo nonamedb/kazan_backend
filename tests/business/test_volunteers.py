@@ -21,8 +21,7 @@ def test__volunteer__join_event(session):
     assert session.query(Volunteer).filter(Volunteer.id == volunteer['id']).count() == 1
 
 
-@pytest.mark.skip
 @pytest.mark.run(2)
-def test__event__get_detail():
-    event = Factory.event()
-    assert event.id == EventDomain.get_detail(key=event.id)['id']
+def test__volunteer__get_detail():
+    volunteer = Factory.volunteer()
+    assert volunteer.id == VolunteerDomain.get_detail(key=volunteer.id)['id']
