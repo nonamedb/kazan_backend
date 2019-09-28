@@ -73,5 +73,5 @@ class EventDomain:
     @classmethod
     @use_session
     def list(cls, session, ) -> list:
-        events = session.query(Event).all() or []
-        return [event.marshall() for event in events]
+        _events = session.query(Event).all() or []
+        return [event.marshall() for event in _events]

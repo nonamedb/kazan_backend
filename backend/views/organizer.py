@@ -10,7 +10,13 @@ logger = logging.getLogger(__name__)
 blueprint = Blueprint('Organizer', __name__)
 
 
+# @blueprint.route('/', strict_slashes=False)
+# def get_all():
+#     res = EventDomain.get_detail(key=1)
+#     return jsonify(res)
+
+
 @blueprint.route('/', strict_slashes=False)
 def get_all():
-    res = EventDomain.get_detail(key=1)
+    res = EventDomain.list()
     return jsonify(res)
