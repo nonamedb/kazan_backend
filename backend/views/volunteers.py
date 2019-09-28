@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 blueprint = Blueprint('Volunteer', __name__)
 
 
-@blueprint.route('/<int:vk_id>/join/<int:event_id>', strict_slashes=False)
+@blueprint.route('/<string:vk_id>/join/<int:event_id>', strict_slashes=False)
 def join_event(vk_id: str, event_id: int):
     logger.info(f'Volunteer {vk_id} join {event_id}')
     try:
