@@ -1,7 +1,8 @@
 # coding: utf-8
 
 
-from sqlalchemy import Column, Integer, String, Sequence, Boolean, ForeignKey, DateTime, Text
+from datetime import datetime, timedelta
+from sqlalchemy import Column, Integer, String, Sequence, Boolean, ForeignKey, DateTime, Text, Date
 from sqlalchemy.dialects.postgresql import JSON
 from sqlalchemy.orm import relationship, backref
 from .base import BaseModel
@@ -18,6 +19,7 @@ class Event(BaseModel):
     bot = Column(Integer(), nullable=True)
     reward = Column(Integer(), nullable=True)
     img = Column(String(250), nullable=True)
+    event_date = Column(Date(), default=(datetime.today() + timedelta(days=5)), nullable=False)
 
     event_subject_id = Column(Integer(), ForeignKey('event_subject.id'))
     event_subject = relationship('EventSubject', lazy='joined')
@@ -31,7 +33,8 @@ class Event(BaseModel):
             volunteer_count=self.volunteer_count,
             bot=self.bot,
             reward=self.reward,
-            img=self.img
+            img=self.img,
+            event_date=self.event_date
         )
 
 
