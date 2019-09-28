@@ -7,7 +7,7 @@ from backend.business.events import EventDomain
 
 
 logger = logging.getLogger(__name__)
-blueprint = Blueprint('Organizer', __name__)
+blueprint = Blueprint('Event', __name__)
 
 
 # @blueprint.route('/', strict_slashes=False)
@@ -16,7 +16,9 @@ blueprint = Blueprint('Organizer', __name__)
 #     return jsonify(res)
 
 
-@blueprint.route('/', strict_slashes=False)
-def get_all():
-    res = EventDomain.list()[:5]
-    return jsonify(res)
+@blueprint.route('/list/', strict_slashes=False)
+def event_list():
+    logger.info('Events. Get ll')
+    return jsonify(EventDomain.list()[:5])
+
+
