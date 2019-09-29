@@ -2,7 +2,7 @@
 
 
 import logging
-from flask import Blueprint, jsonify, abort, g
+from flask import Blueprint, jsonify, abort, g, request
 from backend.business.events import EventDomain
 from backend.business.exceptions import DataNotFoundException
 
@@ -29,22 +29,17 @@ def event_list():
 
 
 @blueprint.route('/add/', methods=['POST'], strict_slashes=False)
-def event_add(org_vk_id: str,
-              name: str,
-              description: str,
-              community_id: int,
-              volunteer_count: int,
-              reward: int,
-              event_subject: str):
-    logger.info(f'{name}{description}{event_subject}{community_id}{volunteer_count}{reward}')
+def event_add():
+    content = request.json
+    logger.info(content)
     try:
-        EventDomain.register(org_vk_id=org_vk_id,
-                             name=name,
-                             description=description,
-                             community_id=community_id,
-                             volunteer_count=volunteer_count,
-                             reward=reward,
-                             event_subject=event_subject)
+        EventDomain.register(org_vk_id=content['org_vk_id'],
+                             name=content['name'],
+                             description=content['description'],
+                             community_id=content['community_id'],
+                             volunteer_count=content['volunteer_count'],
+                             reward=content['reward'],
+                             event_subject=content['event_subject'])
         return jsonify([True])
     except DataNotFoundException as exc:
         abort(500)
