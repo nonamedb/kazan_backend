@@ -47,7 +47,7 @@ class EventDomain:
                  community_id: int,
                  volunteer_count: int,
                  reward: int) -> dict:
-        event_subject = session.query(EventSubject).filter(EventSubject.name == event_subject).one_or_none()
+        event_subject = session.query(EventSubject).filter(EventSubject.abbr == event_subject).one_or_none()
         if not event_subject:
             raise DataNotFoundException()
         organizer = session.query(Organizer).filter(Organizer.vk_id == org_vk_id).one_or_none()
