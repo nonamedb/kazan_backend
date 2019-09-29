@@ -40,7 +40,7 @@ class EventDomain:
     @use_session
     def register(cls,
                  session: Session,
-                 org_vk_id: int,
+                 org_vk_id: str,
                  name: str,
                  description: str,
                  event_subject: str,
