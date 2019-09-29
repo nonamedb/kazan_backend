@@ -19,9 +19,9 @@ def join_event(vk_id: str, event_id: int):
         logger.info(res)
         return jsonify(res)
     except DataNotFoundException:
-        return abort(404)
+        abort(404)
     except:
-        return abort(500)
+        abort(500)
 
 
 @blueprint.route('/<string:vk_id>/', strict_slashes=False)
@@ -31,6 +31,6 @@ def volunteer_detail(vk_id: int):
         volunteer = VolunteerDomain.get_detail(key=vk_id)
         return jsonify(volunteer)
     except DataNotFoundException as exc:
-        return abort(404)
+        abort(404)
     except:
-        return abort(500)
+        abort(500)

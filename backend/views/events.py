@@ -17,9 +17,9 @@ def event_detail(event_id: int):
     try:
         return jsonify(EventDomain.get_detail(key=event_id))
     except DataNotFoundException:
-        return abort(404)
+        abort(404)
     except:
-        return abort(500)
+        abort(500)
 
 
 @blueprint.route('/list/', strict_slashes=False)
