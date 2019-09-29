@@ -40,6 +40,7 @@ def use_session(func):
         try:
             res = func(*args, **kwargs)
             session.commit()
+            session.close()
             return res
         except (SQLAlchemyError, ) as exc:
             logger.info(repr(exc))

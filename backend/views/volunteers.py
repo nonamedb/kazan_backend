@@ -31,6 +31,6 @@ def volunteer_detail(vk_id: int):
         volunteer = VolunteerDomain.get_detail(key=vk_id)
         return jsonify(volunteer)
     except DataNotFoundException as exc:
-        abort(404)
+        return abort(404)
     except:
-        abort(500)
+        return abort(500)
