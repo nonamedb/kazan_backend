@@ -18,9 +18,10 @@ class Volunteer(BaseModel):
 
     id = Column(Integer, Sequence('volunteer_id_seq'), primary_key=True)
     vk_id = Column(String(50), nullable=False)
-    events = relationship("Event",
-                          secondary=volunteer_event_table
-                          )
+    volunteer_events = relationship("Event",
+                                    secondary=volunteer_event_table,
+                                    back_populates='volunteers'
+                                    )
 
     def marshall(self):
         return dict(

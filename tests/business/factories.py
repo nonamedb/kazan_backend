@@ -49,6 +49,7 @@ class EventSubjectFactory(BaseFactory):
         model = models.EventSubject
 
     name = factory.Faker('name')
+    abbr = strand(10)
 
 
 class EventFactory(BaseFactory):

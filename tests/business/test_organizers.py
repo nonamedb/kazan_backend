@@ -15,7 +15,7 @@ fake = Faker()
 
 
 @pytest.mark.run(order=1)
-def test__event__register(session):
+def test__organizer__add_event(session):
     event_subject = Factory.event_subject()
     event = EventDomain.register(
         name=fake.name(),
@@ -29,12 +29,12 @@ def test__event__register(session):
 
 
 @pytest.mark.run(2)
-def test__event__list(session):
+def test__organizer__list(session):
     [Factory.event() for _ in range(20)]
     assert session.query(Event).all()
 
 
 @pytest.mark.run(3)
-def test__event__get_detail():
+def test__organizer__get_detail():
     event = Factory.event()
     assert event.id == EventDomain.get_detail(key=event.id)['id']

@@ -40,24 +40,27 @@ class EventDomain:
     @use_session
     def register(cls,
                  session: Session,
+                 org_vk_id: int,
                  name: str,
                  description: str,
                  event_subject: str,
                  community_id: int,
                  volunteer_count: int,
-                 bot: bool,
                  reward: int) -> dict:
         event_subject = session.query(EventSubject).filter(EventSubject.name == event_subject).one_or_none()
         if not event_subject:
             raise DataNotFoundException()
+        organizer = session.query(Organizer).filter(Organizer.vk_id == org_vk_id).one_or_none()
+        if not organizer:
+            organizer = Organizer(vk_id=org_vk_id)
         event_obj = Event(name=name,
                           description=description,
                           event_subject_id=event_subject.id,
                           community_id=community_id,
                           volunteer_count=volunteer_count,
-                          bot=bot,
                           reward=reward
                           )
+        event_obj.organizers.append(organizer)
         session.add(event_obj)
         session.commit()
         return event_obj.marshall()

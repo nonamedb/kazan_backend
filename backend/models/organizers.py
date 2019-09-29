@@ -18,15 +18,16 @@ class Organizer(BaseModel):
 
     id = Column(Integer, Sequence('organizer_id_seq'), primary_key=True)
     vk_id = Column(String(50), nullable=False)
-    events = relationship("Event",
-                          secondary=organizer_event_table
-                          )
+    organizer_events = relationship("Event",
+                                    secondary=organizer_event_table,
+                                    back_populates='organizers'
+                                    )
 
     def marshall(self):
         return dict(
             id=self.id,
             vk_id=self.vk_id,
-            events=[event.marshall() for event in self.events]
+            events=[event.marshall() for event in self.organizer_events]
         )
 
 

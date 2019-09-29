@@ -29,12 +29,22 @@ def event_list():
 
 
 @blueprint.route('/add/', methods=['POST'], strict_slashes=False)
-def event_add(name: str,
+def event_add(org_vk_id: str,
+              name: str,
               description: str,
-              event_subject: str,
               community_id: int,
               volunteer_count: int,
-              bot: bool,
-              reward: int):
-    logger.info(f'{name}{description}{event_subject}{community_id}{volunteer_count}{bot}{reward}')
-    return jsonify([])
+              reward: int,
+              event_subject: str):
+    logger.info(f'{name}{description}{event_subject}{community_id}{volunteer_count}{reward}')
+    try:
+        EventDomain.register(org_vk_id=org_vk_id,
+                             name=name,
+                             description=description,
+                             community_id=community_id,
+                             volunteer_count=volunteer_count,
+                             reward=reward,
+                             event_subject=event_subject)
+        return jsonify([True])
+    except DataNotFoundException as exc:
+        abort(500)
