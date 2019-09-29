@@ -3,7 +3,7 @@
 import logging
 from sqlalchemy.orm import Session
 from backend.utils.database import use_session
-from backend.models import Volunteer, Event
+from backend.models import Volunteer, Event, Organizer
 from backend.business.exceptions import DataNotFoundException, UnknownParameterException
 
 
@@ -35,7 +35,7 @@ class OrganizerDomain:
     @classmethod
     @use_session
     def get_detail(cls, session, key: int) -> dict:
-        volunteer = session.query(Volunteer).filter(Volunteer.vk_id == key).one_or_none()
-        if not volunteer:
+        organizer = session.query(Organizer).filter(Organizer.vk_id == key).one_or_none()
+        if not organizer:
             raise DataNotFoundException()
-        return volunteer.marshall()
+        return organizer.marshall()
