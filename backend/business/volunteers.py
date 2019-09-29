@@ -28,7 +28,7 @@ class VolunteerDomain:
         if not volunteer_obj:
             volunteer_obj = Volunteer(vk_id=vk_id)
             session.add(volunteer_obj)
-        volunteer_obj.events.append(event)
+        volunteer_obj.volunteer_events.append(event)
         logger.info(f'Volunteer add to session')
         session.commit()
         return volunteer_obj.marshall()

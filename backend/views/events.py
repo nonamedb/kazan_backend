@@ -39,7 +39,8 @@ def event_add():
                              community_id=content['community_id'],
                              volunteer_count=content['volunteer_count'],
                              reward=content['reward'],
-                             event_subject=content['event_subject'])
+                             event_subject=content['event_subject'],
+                             img=content['img'])
         return jsonify([True])
     except DataNotFoundException as exc:
         abort(500)
