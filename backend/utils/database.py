@@ -40,11 +40,11 @@ def use_session(func):
         try:
             res = func(*args, **kwargs)
             session.commit()
-            session.close()
             return res
         except (SQLAlchemyError, ) as exc:
             logger.info(repr(exc))
             session.rollback()
         finally:
+            logger.info('Close connection')
             session.close()
     return wrapper
